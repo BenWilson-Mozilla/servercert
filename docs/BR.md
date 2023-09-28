@@ -269,7 +269,9 @@ The Definitions found in the CA/Browser Forum's Network and Certificate System S
 
 **Affiliate**: A corporation, partnership, joint venture or other entity controlling, controlled by, or under common control with another entity, or an agency, department, political subdivision, or any entity operating under the direct control of a Government Entity.
 
-**Applicant**: The natural person or Legal Entity that applies for (or seeks renewal of) a Certificate. Once the Certificate is issued, the Applicant is referred to as the Subscriber. For Certificates issued to devices, the Applicant is the entity that controls or operates the device named in the Certificate, even if the device is sending the actual certificate request.
+**Applicant**: The natural person or Legal Entity that applies for (or seeks renewal of) a Certificate. Once the Subscriber Agreement has been accepted and the Certificate is issued, the Applicant is referred to as the Subscriber. For Certificates issued to devices, the Applicant is the entity that controls or operates the device named in the Certificate, even if the device is sending the actual certificate request.
+
+**Applicant/Subscriber**: The person or entity who may be either an Applicant or a Subscriber, depending on the context in which the term is used. As one example, the term Applicant/Subscriber may describe an existing Subscriber who is obtaining a Certificate for a new FQDN under an existing Subscriber Agreement with the CA.
 
 **Applicant Representative**: A natural person or human sponsor who is either the Applicant, employed by the Applicant, or an authorized agent who has express authority to represent the Applicant:
 
