@@ -273,7 +273,7 @@ The Definitions found in the CA/Browser Forum's Network and Certificate System S
 
 **Applicant/Subscriber**: The person or entity who may be either an Applicant or a Subscriber, depending on the context in which the term is used. As one example, the term Applicant/Subscriber may describe an existing Subscriber who is obtaining a Certificate for a new FQDN under an existing Subscriber Agreement with the CA.
 
-**Applicant Representative**: A natural person or human sponsor who is either the Applicant, employed by the Applicant, or an authorized agent who has express authority to represent the Applicant:
+**Applicant/Subscriber Representative**: A natural person or human sponsor who is either the Applicant, employed by the Applicant, or an authorized agent who has express authority to represent the Applicant:
 
   i. who signs and submits, or approves a certificate request on behalf of the Applicant, and/or
   ii. who accepts a Subscriber Agreement on behalf of the Applicant.
