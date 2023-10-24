@@ -276,7 +276,7 @@ The Definitions found in the CA/Browser Forum's Network and Certificate System S
 **Applicant/Subscriber Representative**: A natural person or human sponsor who is either the Applicant, employed by the Applicant, or an authorized agent who has express authority to represent the Applicant:
 
   i. who signs and submits, or approves a certificate request on behalf of the Applicant, and/or
-  ii. who accepts a Subscriber Agreement on behalf of the Applicant.
+  ii. who accepts a Subscriber Agreement on behalf of the Applicant, who can be considered an Applicant/Subscriber.
 
 **Application Software Supplier**: A supplier of Internet browser software or other relying-party application software that displays or uses Certificates and incorporates Root Certificates.
 
