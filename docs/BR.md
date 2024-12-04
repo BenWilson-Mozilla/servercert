@@ -1828,11 +1828,13 @@ For other CA Key Pairs that are for the operator of the Root CA or an Affiliate 
 
 In all cases, the CA SHALL:
 
-1. generate the CA Key Pair in a physically secured environment as described in the CA's Certificate Policy and/or Certification Practice Statement;
-2. generate the CA Key Pair using personnel in Trusted Roles under the principles of multiple person control and split knowledge;
-3. generate the CA Key Pair within cryptographic modules meeting the applicable technical and business requirements as disclosed in the CA's Certificate Policy and/or Certification Practice Statement;
-4. log its CA Key Pair generation activities; and
-5. maintain effective controls to provide reasonable assurance that the Private Key was generated and protected in conformance with the procedures described in its Certificate Policy and/or Certification Practice Statement and (if applicable) its Key Generation Script.
+1. generate and store each CA Key Pair in a physically secured environment as described in the CA's Certificate Policy and/or Certification Practice Statement;
+2. generate and store each CA Key Pair using personnel in Trusted Roles under the principles of multiple person control and split knowledge;
+3. generate and store each CA Key Pair within cryptographic modules meeting the applicable technical and business requirements as disclosed in the CA's Certificate Policy and/or Certification Practice Statement;
+4. log its CA Key Pair generation activities; 
+5. maintain effective controls to provide reasonable assurance that the Private Key was generated and protected in conformance with the procedures described in its Certificate Policy and/or Certification Practice Statement and its Key Generation Script;
+6. protect all CA Private Keys, including those pre-generated but not yet associated with a CA certificate, from key generation until key destruction; and
+7. obtain a period-of-time audit report (that includes key protection) from a Qualified Auditor for all CA Key Pairs, identifying them in accordance with item 3 of  Section 8.6, for the entire lifecycle of the CA Key Pair from key generation until such time as all copies of the CA Private Key are destroyed or the CA public key can no longer be trusted by any Certificate Consumer for any issued certificate.
 
 #### 6.1.1.2 RA Key Pair Generation
 
@@ -3567,7 +3569,7 @@ The Audit Report MUST contain at least the following clearly-labelled informatio
 
 1. name of the organization being audited;
 2. name and address of the organization performing the audit;
-3. the SHA-256 fingerprint of all Roots and Subordinate CA Certificates, including Cross-Certified Subordinate CA Certificates, that were in-scope of the audit;
+3. the SHA-256 fingerprint of all Roots and Subordinate CA Certificates, including Cross-Certified Subordinate CA Certificates, and the SHA256 hash (DER-encoded) of all pre-generated CA Public Keys that are not yet associated with CA Certificates, that were in-scope of the audit;
 4. audit criteria, with version number(s), that were used to audit each of the certificates (and associated keys);
 5. a list of the CA policy documents, with version numbers, referenced during the audit;
 6. whether the audit assessed a period of time or a point in time;
