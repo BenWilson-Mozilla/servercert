@@ -1498,7 +1498,7 @@ With the exception of Short-lived Subscriber Certificates, the CA MUST revoke a 
 | 2 | The CA obtains evidence that the privilege to use the Certificate to represent an identity, domain, or IP address has been withdrawn, lost, or was never properly established. This includes Subscriber misuse of the Certificate, violation of material obligations under the Subscriber Agreement, or loss of legal or contractual entitlement to a domain or IP address; it also includes cases where the certificate request or issuance was not properly authorized, such as when the CA fails to properly perform validation of domain authorization or control, CAA checking under Section 3.2.2.8, Validation of Authority under Section 3.2.5, or other required authorization or verification procedures. | MUST within 24 hours | `privilegeWithdrawn` (9) |
 | 3 | The CA is made aware of a material change in the Subject Identity Information contained in the Certificate. | SHOULD within 24 hours, but MUST within 5 days | `affiliationChanged` (3) |
 | 4 | The CA determines that the Certificate should be revoked for benign administrative, lifecycle, or compliance reasons not covered by keyCompromise, privilegeWithdrawn, or affiliationChanged as described above, and including documentation-related or process-alignment revocations, operational lifecycle management activities, or other housekeeping actions that do not affect the Certificate’s cryptographic or identity assurances. Replacement of the Certificate is not required. | SHOULD within 24 hours, but MUST within 5 days | `superseded` (4) |
-| 5 | The Subscriber, subject, or system it represents has ceased operations with no indication of key compromise or the other previously defined reasons in this section. | SHOULD within 24 hours, but MUST within 5 days | `cessationOfOperation` (5) |
+| 5 | The Subscriber, subject, or system represented in the Certificate has ceased operations with no indication of key compromise or the other previously defined reasons in this section. | SHOULD within 24 hours, but MUST within 5 days | `cessationOfOperation` (5) |
 | 6 | No reason for revocation is specfied or the reason for revocation does not fall within any of the other revocation reason codes defined in this section. | SHOULD within 24 hours, but MUST within 5 days | `unspecified` (0) |
 
 #### 4.9.1.2 Reasons for Revoking a Subordinate CA Certificate
@@ -3591,26 +3591,28 @@ Table: crlEntryExtensions Component
 
 | __CRL Entry Extension__   | __Presence__    | __Description__ |
 | ---                       | --              | -----           |
-| `reasonCode`              | *               | When present (OID 2.5.29.21), MUST NOT be marked critical and MUST indicate the most appropriate reason for revocation of the Certificate. <br><br> MUST be present unless the CRL entry is for a Certificate not technically capable of causing issuance and either 1) the CRL entry is for a Subscriber Certificate subject to these Requirements revoked prior to July 15, 2023 or 2) the reason for revocation (i.e., reasonCode) is unspecified (0). <br><br>See the "CRLReasons" table for additional requirements. |
+| `reasonCode`              | *               | When present (OID 2.5.29.21), MUST NOT be marked critical and MUST indicate the most appropriate reason for revocation of the Certificate. <br><br> MUST be present unless the reason for revocation (i.e., reasonCode) is unspecified (0). <br><br>See Section 4.9.1 for additional requirements. |
 | Any other value           | NOT RECOMMENDED | - |
 
-Table: CRLReasons
+For any Certificate revoked on or after 20XX-XX-XX, the reasonCode extension, if present, MUST contain one of the values specified below. The extension MUST be included for all permitted reasons except for unspecified (0).
 
-| __RFC 5280 reasonCode__   | __RFC 5280 reasonCode value__ | __Description__ |
-| ---                       | -    | ------                                   |
-| unspecified               | 0    | Represented by the omission of a reasonCode. MUST be omitted if the CRL entry is for a Certificate not technically capable of causing issuance unless the CRL entry is for a Subscriber Certificate subject to these Requirements revoked prior to July 15, 2023. 
-| keyCompromise             | 1    | Indicates that it is known or suspected that the Subscriber’s Private Key has been compromised. |
-| affiliationChanged        | 3    | Indicates that the Subject's name or other Subject Identity Information in the Certificate has changed, but there is no cause to suspect that the Certificate's Private Key has been compromised. |
-| superseded                | 4    | Indicates that the Certificate is being replaced because: the Subscriber has requested a new Certificate, the CA has reasonable evidence that the validation of domain authorization or control for any fully‐qualified domain name or IP address in the Certificate should not be relied upon, or the CA has revoked the Certificate for compliance reasons such as the Certificate does not comply with these Baseline Requirements or the CA's CP or CPS. |
-| cessationOfOperation      | 5    | Indicates that the website with the Certificate is shut down prior to the expiration of the Certificate, or if the Subscriber no longer owns or controls the Domain Name in the Certificate prior to the expiration of the Certificate.
-| certificateHold           | 6    | MUST NOT be included if the CRL entry is for 1) a Certificate subject to these Requirements, or 2) a Certificate not subject to these Requirements and was either A) issued on-or-after 2020-09-30 or B) has a `notBefore` on-or-after 2020-09-30.
-| privilegeWithdrawn        | 9    | Indicates that there has been a subscriber-side infraction that has not resulted in keyCompromise, such as the Certificate Subscriber provided misleading information in their Certificate Request or has not upheld their material obligations under the Subscriber Agreement or Terms of Use. |
+Table: Permitted reasonCode Values
 
-The Subscriber Agreement, or an online resource referenced therein, MUST inform Subscribers about the revocation reason options listed above and provide explanation about when to choose each option. Tools that the CA provides to the Subscriber MUST allow for these options to be easily specified when the Subscriber requests revocation of their Certificate, with the default value being that no revocation reason is provided (i.e. the default corresponds to the CRLReason "unspecified (0)" which results in no reasonCode extension being provided in the CRL). 
+| __RFC 5280 reasonCode__   | __RFC 5280 reasonCode value__ |
+| ---                       | -    |
+| keyCompromise             | 1    |
+| affiliationChanged        | 3    | 
+| superseded                | 4    | 
+| cessationOfOperation      | 5    | 
+| privilegeWithdrawn        | 9    | 
+
+In cases where multiple reasonCodes are considered appropriate for a revocation, keyCompromise and privilegeWithdrawn reasons MUST take precedence, and in that order.
 
 The privilegeWithdrawn reasonCode SHOULD NOT be made available to the Subscriber as a revocation reason option, because the use of this reasonCode is determined by the CA and not the Subscriber.
 
 When a CA obtains verifiable evidence of Key Compromise for a Certificate whose CRL entry does not contain a reasonCode extension or has a reasonCode extension with a non-keyCompromise reason, the CA SHOULD update the CRL entry to enter keyCompromise as the CRLReason in the reasonCode extension. 
+
+The Subscriber Agreement, or an online resource referenced therein, MUST inform Subscribers about the revocation reason options listed above and provide explanation about when to choose each option. Tools that the CA provides to the Subscriber MUST allow for these options to be easily specified when the Subscriber requests revocation of their Certificate, with the default value being that no revocation reason is provided (i.e. the default corresponds to the CRLReason "unspecified (0)" which results in no reasonCode extension being provided in the CRL).
 
 #### 7.2.2.1 CRL Issuing Distribution Point
 
