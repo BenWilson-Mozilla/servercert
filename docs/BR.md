@@ -1490,27 +1490,16 @@ No stipulation.
 
 The CA MAY support revocation of Short-lived Subscriber Certificates.
 
-With the exception of Short-lived Subscriber Certificates, the CA SHALL revoke a Certificate within 24 hours and use the corresponding CRLReason (see Section 7.2.2) if one or more of the following occurs:
+With the exception of Short-lived Subscriber Certificates, the CA MUST revoke a Certificate in accordance with the following:
 
-1. The Subscriber requests in writing, without specifying a CRLreason, that the CA revoke the Certificate (CRLReason "unspecified (0)" which results in no reasonCode extension being provided in the CRL);
-2. The Subscriber notifies the CA that the original certificate request was not authorized and does not retroactively grant authorization (CRLReason #9, privilegeWithdrawn);
-3. The CA obtains evidence that the Subscriber's Private Key corresponding to the Public Key in the Certificate suffered a Key Compromise (CRLReason #1, keyCompromise);
-4. The CA is made aware of a demonstrated or proven method that can easily compute the Subscriber's Private Key based on the Public Key in the Certificate, including but not limited to those identified in [Section 6.1.1.3(5)](#6113-subscriber-key-pair-generation) (CRLReason #1, keyCompromise);
-5. The CA obtains evidence that the validation of domain authorization or control for any Fully-Qualified Domain Name or IP address in the Certificate should not be relied upon (CRLReason #4, superseded).
-
-With the exception of Short-lived Subscriber Certificates, the CA SHOULD revoke a certificate within 24 hours and MUST revoke a Certificate within 5 days and use the corresponding CRLReason (see Section 7.2.2) if one or more of the following occurs:
-
-6. The Certificate no longer complies with the requirements of [Section 6.1.5](#615-key-sizes) and [Section 6.1.6](#616-public-key-parameters-generation-and-quality-checking) (CRLReason #4, superseded);
-7. The CA obtains evidence that the Certificate was misused (CRLReason #9, privilegeWithdrawn);
-8. The CA is made aware that a Subscriber has violated one or more of its material obligations under the Subscriber Agreement or Terms of Use (CRLReason #9, privilegeWithdrawn);
-9. The CA is made aware of any circumstance indicating that use of a Fully-Qualified Domain Name or IP address in the Certificate is no longer legally permitted (e.g. a court or arbitrator has revoked a Domain Name Registrant's right to use the Domain Name, a relevant licensing or services agreement between the Domain Name Registrant and the Applicant has terminated, or the Domain Name Registrant has failed to renew the Domain Name) (CRLReason #5, cessationOfOperation);
-10. The CA is made aware that a Wildcard Certificate has been used to authenticate a fraudulently misleading subordinate Fully-Qualified Domain Name (CRLReason #9, privilegeWithdrawn);
-11. The CA is made aware of a material change in the information contained in the Certificate (CRLReason #9, privilegeWithdrawn);
-12. The CA is made aware that the Certificate was not issued in accordance with these Requirements or the CA's Certificate Policy or Certification Practice Statement (CRLReason #4, superseded);
-13. The CA determines or is made aware that any of the information appearing in the Certificate is inaccurate (CRLReason #9, privilegeWithdrawn);
-14. The CA's right to issue Certificates under these Requirements expires or is revoked or terminated, unless the CA has made arrangements to continue maintaining the CRL/OCSP Repository (CRLReason "unspecified (0)" which results in no reasonCode extension being provided in the CRL);
-15. Revocation is required by the CA's Certificate Policy and/or Certification Practice Statement for a reason that is not otherwise required to be specified by this section 4.9.1.1 (CRLReason "unspecified (0)" which results in no reasonCode extension being provided in the CRL); or
-16. The CA is made aware of a demonstrated or proven method that exposes the Subscriber's Private Key to compromise or if there is clear evidence that the specific method used to generate the Private Key was flawed (CRLReason #1, keyCompromise).
+| **#** | **Description of Revocation Event** | **Revocation Timeline** | **RFC 5280 `reasonCode`** |
+| :---: | --- | --- | :---: |
+| 1 | The CA obtains evidence that the Subscriber’s Private Key is compromised, susceptible to compromise, or can be feasibly derived or exposed due to a flaw, weakness, systemic vulnerability, or a deficiency in the method used to generate or protect it. | MUST within 24 hours | `keyCompromise` (1) |
+| 2 | The CA obtains evidence that the privilege to use the Certificate to represent an identity, domain, or IP address has been withdrawn, lost, or was never properly established. This includes Subscriber misuse of the Certificate, violation of material obligations under the Subscriber Agreement, or loss of legal or contractual entitlement to a domain or IP address; it also includes cases where the certificate request or issuance was not properly authorized, such as when the CA fails to properly perform validation of domain authorization or control, CAA checking under Section 3.2.2.8, Validation of Authority under Section 3.2.5, or other required authorization or verification procedures. | MUST within 24 hours | `privilegeWithdrawn` (9) |
+| 3 | The CA is made aware of a material change in the Subject Identity Information contained in the Certificate. | SHOULD within 24 hours, but MUST within 5 days | `affiliationChanged` (3) |
+| 4 | The CA determines that the Certificate should be revoked for benign administrative, lifecycle, or compliance reasons not covered by keyCompromise, privilegeWithdrawn, or affiliationChanged as described above, and including documentation-related or process-alignment revocations, operational lifecycle management activities, or other housekeeping actions that do not affect the Certificate’s cryptographic or identity assurances. Replacement of the Certificate is not required. | SHOULD within 24 hours, but MUST within 5 days | `superseded` (4) |
+| 5 | The Subscriber, subject, or system it represents has ceased operations with no indication of key compromise or the other previously defined reasons in this section. | SHOULD within 24 hours, but MUST within 5 days | `cessationOfOperation` (5) |
+| 6 | No reason for revocation is specfied or the reason for revocation does not fall within any of the other revocation reason codes defined in this section. | SHOULD within 24 hours, but MUST within 5 days | `unspecified` (0) |
 
 #### 4.9.1.2 Reasons for Revoking a Subordinate CA Certificate
 
