@@ -25,7 +25,7 @@ jobs:
         echo "evg_version=$subtitle" >> $GITHUB_OUTPUT
         
     - name: Add comment to issue
-      uses: peter-evans/create-or-update-comment@v4
+      uses: peter-evans/create-or-update-comment@v5
       with:
         token: ${{ secrets.GITHUB_TOKEN }}
         issue-number: ${{ github.event.issue.number }}
