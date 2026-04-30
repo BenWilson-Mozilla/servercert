@@ -935,13 +935,24 @@ If an Applicant has a currently valid EV Certificate issued by the CA, a CA MAY 
 3. The Applicant's Verified Method of Communication required by [Section 3.2.2.5](#3225-verified-method-of-communication) but still MUST perform the verification required by [Section 3.2.2.5.2](#32252-acceptable-methods-of-verification) (B);
 4. The Applicant's Operational Existence under [Section 3.2.2.6](#3226-verification-of-applicants-operational-existence);
 5. The Name, Title, Agency and Authority of the Contract Signer, and Certificate Approver, under [Section 3.2.2.8](#3228-verification-of-name-title-and-authority-of-contract-signer-and-certificate-approver); and
-6. The Applicant's right to use the specified Domain Name under [Section 3.2.2.7](#3227-verification-of-applicants-domain-name), provided that the CA confirms the Domain Name remains registered to the same Legal Entity. This confirmation SHALL be performed using one of the following methods:
+6. The Applicant's right to use the specified Domain Name under [Section 3.2.2.7](#3227-verification-of-applicants-domain-name), provided that the CA performs both of the following:
+(a) Confirms, as of the date of issuance, that the Applicant has control over the Domain Name using a procedure specified in Section 3.2.2.4 of the TLS Baseline Requirements; and
+(b) Confirms that the Applicant is either the Domain Name Registrant or has been granted the right to use the Domain Name by the Domain Name Registrant.
+The confirmation required in (b) SHALL be performed using one or more of the following:
 
-A. Verifying the domain registration data via an authenticated channel with the domain registrar or registry;
-B. Relying on a domain control validation, performed in accordance with Baseline Requirements Section 3.2.2.4, that is less than 10 days old; or
-C. Performing a new domain control validation in accordance with Baseline Requirements Section 3.2.2.4.
+A. Obtaining confirmation of the Domain Name registrant and its identity through an authenticated and authoritative channel with the domain registrar or registry that provides reliable evidence of the registrant’s identity;
 
-A CA SHALL NOT rely on prior authentication and verification under this section if more than the maximum reuse period specified for Domain Names in Section 4.2.1 of the Baseline Requirements has elapsed since the CA last performed a complete verification of all items listed in this section without reliance on this section.
+B. Documentation, agreements, or other reliable evidence demonstrating that the Applicant has been granted the right to use the Domain Name by the Domain Name Registrant;
+
+C. Other methods that establish, to a high level of assurance, the relationship between the Applicant and the Domain Name Registrant.
+
+In addition, the CA SHALL perform one of the following:
+1. Rely on a Domain Control Validation performed in accordance with Baseline Requirements Section 3.2.2.4 that is less than 10 days old; or
+2. Perform a Domain Control Validation in accordance with Baseline Requirements Section 3.2.2.4.
+
+A CA SHALL NOT rely solely on domain registration data (including WHOIS or RDAP) that is not obtained through an authenticated and authoritative source to satisfy the requirements of this section.
+   
+A CA SHALL NOT rely on prior authentication and verification under this section if more than the maximum reuse period specified for Domain Names in Section 4.2.1 of the Baseline Requirements has elapsed since the CA last performed Domain Control Validation in accordance with Section 3.2.2.7 and confirmed the Applicant’s right to use the Domain Name without reliance on this section.
 
 ##### 3.2.2.14.2 Re-issuance Requests
 
